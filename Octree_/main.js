@@ -1,6 +1,6 @@
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-var renderer = new THREE.WebGLRenderer();
+var scene = new THREE.Scene();/*crear la scene*/
+var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );/*cual es el tamaño del canvas*/
+var renderer = new THREE.WebGLRenderer();/*el tipo de renderizado*/
 var controls = new THREE.OrbitControls( camera, renderer.domElement );
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
@@ -27,7 +27,7 @@ function rand(n,m){
         let y = Math.random()*m;
         let z = Math.random()*m;
         let point = new Point(x,y,z);
-        octree.insert(point);
+        octree.insert(point);/*añadir puntos*/
     }
 }
 
