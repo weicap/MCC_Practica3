@@ -1,49 +1,40 @@
-// Daniel Shiffman
-// http://codingtra.in
-// http://patreon.com/codingtrain
+class Point{
+	constructor(x,y,userData){
+		this.x=x;
+		this.y=y;
+		this.userData=userData;
+	}
+}
 
-// QuadTree
-// 1: https://www.youtube.com/watch?v=OJxEcs0w_kE
-// 2: https://www.youtube.com/watch?v=QQx_NmCIuCY
+class Rectangle{
+	constructor(x,y,w,h){
+		this.x=x;
+		this.y=y;
+		this.w=w;
+		this.h=h;
+	}
+// verifica si este objeto contiene un objeto Punto
+	contains (point){
+		return(
+			point.x >= this.x - this.w &&
+			point.x < this.x +this.w &&
+			point.y >= this.y - this.h &&
+			point.y < this.y + this.h
+		);
+	}
 
-// For more:
-// https://github.com/CodingTrain/QuadTree
+// verifica si este objeto se intersecta con otro objeto Rectangle
+	intersects (range){
+		return !(
+			range.x - range.w > this.x + this.w ||
+			range.x + range.w < this.x - this.w ||
+			range.y - range.h > this.y + this.h ||
+			range.y + range.h < this.y - this.h
+		  );		
+	}
+}
 
-class Point {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-    }
-  }
-  
-  class Rectangle {
-    constructor(x, y, w, h) {
-      this.x = x;
-      this.y = y;
-      this.w = w;
-      this.h = h;
-    }
-  
-    contains(point) {
-      return (
-        point.x >= this.x - this.w &&
-        point.x < this.x + this.w &&
-        point.y >= this.y - this.h &&
-        point.y < this.y + this.h
-      );
-    }
-  
-    intersects(range) {
-      return !(
-        range.x - range.w > this.x + this.w ||
-        range.x + range.w < this.x - this.w ||
-        range.y - range.h > this.y + this.h ||
-        range.y + range.h < this.y - this.h
-      );
-    }
-  }
-  
-  class QuadTree {
+class QuadTree {
     constructor(boundary, n) {
       this.boundary = boundary;
       this.capacity = n;
@@ -56,6 +47,7 @@ class Point {
       let y = this.boundary.y;
       let w = this.boundary.w;
       let h = this.boundary.h;
+
       let ne = new Rectangle(x + w / 2, y - h / 2, w / 2, h / 2);
       this.northeast = new QuadTree(ne, this.capacity);
       let nw = new Rectangle(x - w / 2, y - h / 2, w / 2, h / 2);
@@ -64,7 +56,8 @@ class Point {
       this.southeast = new QuadTree(se, this.capacity);
       let sw = new Rectangle(x - w / 2, y + h / 2, w / 2, h / 2);
       this.southwest = new QuadTree(sw, this.capacity);
-      this.divided = true;
+      
+	  this.divided = true;
     }
   
     insert(point) {
@@ -124,16 +117,21 @@ class Point {
         this.boundary.w * 2,
         this.boundary.h * 2
       );
-      for (let p of this.points) {
-        strokeWeight(2);
-        point(p.x, p.y);
-      }
+    //   for (let p of this.points) {
+    //     strokeWeight(2);
+    //     point(p.x, p.y);
+    //   }
   
       if (this.divided) {
         this.northeast.show();
         this.northwest.show();
         this.southeast.show();
         this.southwest.show();
+      }
+	  
+	  for (let p of this.points) {
+        strokeWeight(4);
+        point(p.x, p.y);
       }
     }
   }
