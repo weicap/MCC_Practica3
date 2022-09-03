@@ -45,21 +45,3 @@ function draw(){
     // qtree.show();
 }
 
-// function draw() {
-//   background(0);
-//   qtree.show();
-
-//   stroke(0, 255, 0);
-//   rectMode(CENTER);
-//   let range = new Rectangle(mouseX, mouseY, 25, 25);
-
-//   // This check has been introduced due to a bug discussed in https://github.com/CodingTrain/website/pull/556
-//   if (mouseX < width && mouseY < height) {
-//     rect(range.x, range.y, range.w * 2, range.h * 2);
-//     let points = qtree.query(range);
-//     for (let p of points) {
-//       strokeWeight(4);
-//       point(p.x, p.y);
-//     }
-//   }
-//}
