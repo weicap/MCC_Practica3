@@ -13,7 +13,7 @@ class Rectangle{
 		this.w=w;
 		this.h=h;
 	}
-// verifica si este objeto contiene un objeto Punto
+
 	contains (point){
 		return(
 			point.x >= this.x - this.w &&
@@ -23,7 +23,7 @@ class Rectangle{
 		);
 	}
 
-// verifica si este objeto se intersecta con otro objeto Rectangle
+
 	intersects (range){
 		return !(
 			range.x - range.w > this.x + this.w ||
