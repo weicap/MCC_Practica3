@@ -1,14 +1,3 @@
-// Daniel Shiffman
-// http://codingtra.in
-// http://patreon.com/codingtrain
-
-// QuadTree
-// 1: https://www.youtube.com/watch?v=OJxEcs0w_kE
-// 2: https://www.youtube.com/watch?v=QQx_NmCIuCY
-
-// For more:
-// https://github.com/CodingTrain/QuadTree
-
 let qtree;
 
 function setup() {
@@ -16,29 +5,61 @@ function setup() {
   background(255);
   let boundary = new Rectangle(200, 200, 200, 200);
   qtree = new QuadTree(boundary, 4);
-  for (let i = 0; i < 300; i++) {
+
+  console.log(qtree);
+  
+  for (let i = 0; i < 30; i++) {
     let x = randomGaussian(width / 2, width / 8);
     let y = randomGaussian(height / 2, height / 8);
     let p = new Point(x, y);
     qtree.insert(p);
   }
+
+//   background(0);
+//   qtree.show();
 }
 
-function draw() {
-  background(0);
-  qtree.show();
+function draw(){
+    background(0);
+    qtree.show();
 
-  stroke(0, 255, 0);
-  rectMode(CENTER);
-  let range = new Rectangle(mouseX, mouseY, 25, 25);
+    stroke(0,255,0);
+    rectMode(CENTER);
+    let range = new Rectangle(mouseX,mouseY,50,50)
+    rect(range.x,range.y,range.w*2,range.h*2);
+    let points=[];
+    qtree.query(range,points);
 
-  // This check has been introduced due to a bug discussed in https://github.com/CodingTrain/website/pull/556
-  if (mouseX < width && mouseY < height) {
-    rect(range.x, range.y, range.w * 2, range.h * 2);
-    let points = qtree.query(range);
-    for (let p of points) {
-      strokeWeight(4);
-      point(p.x, p.y);
+    for(let p of points){
+        strokeWeight(4);
+        point(p.x,p.y);
     }
-  }
+
+    if (mouseIsPressed){
+        for(let i=0; i<1;i++){
+            let m=new Point(mouseX+random(-5,5), mouseY+random(-5,5));
+            qtree.insert(m);
+        }
+    }
+    // background(0);
+    // qtree.show();
 }
+
+// function draw() {
+//   background(0);
+//   qtree.show();
+
+//   stroke(0, 255, 0);
+//   rectMode(CENTER);
+//   let range = new Rectangle(mouseX, mouseY, 25, 25);
+
+//   // This check has been introduced due to a bug discussed in https://github.com/CodingTrain/website/pull/556
+//   if (mouseX < width && mouseY < height) {
+//     rect(range.x, range.y, range.w * 2, range.h * 2);
+//     let points = qtree.query(range);
+//     for (let p of points) {
+//       strokeWeight(4);
+//       point(p.x, p.y);
+//     }
+//   }
+//}
