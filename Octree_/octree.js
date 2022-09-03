@@ -45,7 +45,7 @@ class Box{
 class Octree{
     constructor(box,n){
         this.box = box;
-        this.capacity = n;
+        this.limite = n;
         this.points = [];
         this.divided = false;
 
@@ -76,14 +76,14 @@ class Octree{
         let sob = new Box(x-w,y+h,z+d,w,h,d);
         let seb = new Box(x+w,y+h,z+d,w,h,d);
 
-        this.sonNOF = new Octree(nof,this.capacity);
-        this.sonNEF = new Octree(nef,this.capacity);
-        this.sonSOF = new Octree(sof,this.capacity);
-        this.sonSEF = new Octree(sef,this.capacity);
-        this.sonNOB = new Octree(nob,this.capacity);
-        this.sonNEB = new Octree(neb,this.capacity);
-        this.sonSOB = new Octree(sob,this.capacity);
-        this.sonSEB = new Octree(seb,this.capacity);
+        this.sonNOF = new Octree(nof,this.limite);
+        this.sonNEF = new Octree(nef,this.limite);
+        this.sonSOF = new Octree(sof,this.limite);
+        this.sonSEF = new Octree(sef,this.limite);
+        this.sonNOB = new Octree(nob,this.limite);
+        this.sonNEB = new Octree(neb,this.limite);
+        this.sonSOB = new Octree(sob,this.limite);
+        this.sonSEB = new Octree(seb,this.limite);
 
         alpha = alpha + 0.1;
         this.divided = true;
@@ -93,7 +93,7 @@ class Octree{
         if(!this.box.contains(point)){
             return false;
         }
-        if(this.points.length<this.capacity){
+        if(this.points.length<this.limite){
             this.points.push(point);
             point.material.color.set(this.color);
             return true;
